@@ -40,18 +40,20 @@ public class Client extends AsyncTask<Void, Void, Void> {
     }
     @Override
     protected Void doInBackground(Void... arg0) {
-        while (true){
         try {
             socket = new Socket(dstAddress, dstPort);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
-            if (this.response != "") {
-                printWriter.println(this.response);
-            }
-            this.response = "";
             inputStreamReader = new InputStreamReader(socket.getInputStream());
             reader = new BufferedReader(inputStreamReader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while (true){
+        try {
+            Thread.sleep(1000);
+            printWriter.println(this.response);
             if (reader.readLine() != mensaje) {
-                mensaje = reader.readLine();
+                mensaje += reader.readLine();
             }
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block
@@ -61,8 +63,10 @@ public class Client extends AsyncTask<Void, Void, Void> {
             // TODO Auto-generated catch block
             e.printStackTrace();
             response = "IOException: " + e.toString();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-    }
+        }
     }
     /**
     public void reading(Context context) throws IOException {
@@ -101,6 +105,7 @@ public class Client extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
+        mensaje+="EL hilo se ha cerrado";
     }
 
 }

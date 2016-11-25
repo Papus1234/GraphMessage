@@ -33,19 +33,19 @@ public class ChatActivity extends AppCompatActivity {
         send_button = (Button) findViewById(R.id.send_button);
         mensaje = (EditText) findViewById(R.id.message_editText);
         chat = (TextView) findViewById(R.id.message_TextView);
-        new Thread(){
+        myClient.execute();
+        /*new Thread(){
             @Override
             public void run() {
                 while (true){
                     try {
                         Thread.sleep(10000);
-                        myClient.execute();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
-        }.start();
+        }.start();*/
         send_Message("me conecte xD"+":"+"Connect");
         send_button.setOnClickListener(new View.OnClickListener(){
             @Override
