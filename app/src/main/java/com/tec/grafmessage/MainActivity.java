@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
     private BluetoothAdapter BTAdapter;
     public static int REQUEST_BLUETOOTH = 1;
     ArrayList<DeviceItem> deviceItemList;
+    FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +47,9 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
             startActivityForResult(enableBT, REQUEST_BLUETOOTH);
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         mDeviceListFragment = DeviceListFragment.newInstance(BTAdapter);
         fragmentManager.beginTransaction().replace(R.id.container, mDeviceListFragment).commit();
-
         setContentView(R.layout.activity_main);
     }
 
@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
         startActivity(intent);
     }
 
-    public void cerrarSesion(View view) {
-        Intent intent=new Intent(this,ChatActivity.class);
+    public void bluetooth(View view) {
+        Intent intent = new Intent(this,ChatActivity.class);
         startActivity(intent);
     }
 
